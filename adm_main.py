@@ -90,6 +90,8 @@ req = Session()
 req.headers.update()
 req.trust_env = True
 
+print('Making request...')
+
 reply = req.get(s.param('ws_addr'),
                  params={
                      'requestID': uuid4(),
@@ -100,16 +102,20 @@ reply = req.get(s.param('ws_addr'),
                      'token': s.param('ws_tokn')
                  },
                  verify=False)
+print('Request done.')
 fm = Main.Schema().loads(reply.text)
+print('Data loaded...')
 d = []
 dump = Settings.random_file_name_local()
-
+print('Preparing dump file in: ', dump)
 for x in fm.devices:
     for z in x.events:
         d.append({'date': z.date, 'operationType': z.operationType, 'incomeSum': str(z.incomeSum).replace(',', '.'), 'tid': z.tid, 'admSN': x.admSN, 'receipt': z.receipt, 'rrn': z.rrn})
 
+
 if len(d) > 0:
     if write_data_to_xml(d, dump):
+        print('SQL: inserting dump.')
         sql.execute('exec [import_adm_data] %s', (sql.file_to_binary_data(dump)))
 
 
