@@ -110,7 +110,8 @@ dump = Settings.random_file_name_local()
 print('Preparing dump file in: ', dump)
 for x in fm.devices:
     for z in x.events:
-        d.append({'date': z.date, 'operationType': z.operationType, 'incomeSum': str(z.incomeSum).replace(',', '.'), 'tid': z.tid, 'admSN': x.admSN, 'receipt': z.receipt, 'rrn': z.rrn})
+        d.append({'date': z.date, 'operationType': z.operationType, 'incomeSum': str(z.incomeSum).replace(',', '.'),
+                  'tid': z.tid, 'admSN': x.admSN, 'receipt': z.receipt, 'rrn': z.rrn})
 
 
 if len(d) > 0:
