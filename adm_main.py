@@ -1,4 +1,4 @@
-from requests import request, Session
+from requests import Session
 from datetime import datetime, timedelta
 from typing import List
 from uuid import uuid4
