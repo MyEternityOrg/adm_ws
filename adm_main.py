@@ -88,7 +88,7 @@ s = Settings('settings.json')
 sql = MSSQLConnection(s)
 req = Session()
 req.headers.update()
-req.trust_env = True
+req.trust_env = False
 
 print('Making request...')
 
@@ -103,11 +103,16 @@ reply = req.get(s.param('ws_addr'),
                  },
                  verify=False)
 print('Request done.')
+
+with open('request.json', 'w', encoding='UTF8') as f:
+    f.write(reply.text)
+
 fm = Main.Schema().loads(reply.text)
 print('Data loaded...')
 d = []
 dump = Settings.random_file_name_local()
 print('Preparing dump file in: ', dump)
+
 for x in fm.devices:
     for z in x.events:
         d.append({'date': z.date, 'operationType': z.operationType, 'incomeSum': str(z.incomeSum).replace(',', '.'),

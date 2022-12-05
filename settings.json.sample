@@ -1,0 +1,8 @@
+{
+	"ws_addr": "https://most.moniron.com/adm/app/v1/cashStat",
+	"ws_tokn": "token_here",
+	"server": "server",
+	"database": "db",
+	"login": "usr",
+	"password": "pass"	
+}
